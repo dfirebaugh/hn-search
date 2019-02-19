@@ -6,8 +6,10 @@ const queries = prevList => {
   return searchTerms.map((x, i) => <li key={i}> {x} </li>)
 }
 class PreviousList extends React.Component {
-  render() {
+  componentDidMount() {
     store.subscribe(() => this.setState({ searchTerms: store.getState().searchTerms }))
+  }
+  render() {
     return <div>
       {this.state &&
         <div>
