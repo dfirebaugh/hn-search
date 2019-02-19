@@ -23,10 +23,15 @@ class Search extends React.Component {
       .then(response => response.json())
       .then(data => this.setState({ results: data }))
   }
+  keyPress = e => {
+    if (e.keyCode === 13) {
+      this.onSubmit()
+    }
+  }
   render() {
     return <header className="App-header">
       <div style={{ display: 'flex' }}>
-        <input onChange={this.handleSearch} />
+        <input onKeyDown={this.keyPress} onChange={this.handleSearch} />
         <button onClick={this.onSubmit}>Submit</button>
       </div>
       {this.state && this.state.search}
