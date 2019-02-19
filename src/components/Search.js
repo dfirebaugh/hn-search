@@ -1,4 +1,6 @@
 import React from 'react';
+import store from '../store/index';
+import { addSearchTerm } from '../actions/index';
 import logo from '../logo.svg';
 
 const resultList = results => results.hits.map((x, i) => {
@@ -15,12 +17,11 @@ class Search extends React.Component {
     this.setState({ search: e.target.value })
   }
   onSubmit = () => {
+    store.dispatch(addSearchTerm(this.state.search))
+
     fetch(`http://hn.algolia.com/api/v1/search?query=${this.state.search}`)
       .then(response => response.json())
-      .then(data => {
-        console.log(data.hits)
-        this.setState({ results: data })
-      })
+      .then(data => this.setState({ results: data }))
   }
   render() {
     return <header className="App-header">

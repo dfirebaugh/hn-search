@@ -1,0 +1,1 @@
+export const ADD_SEARCH_TERM = "ADD_SEARCH_TERM";
