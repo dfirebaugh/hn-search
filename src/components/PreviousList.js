@@ -2,7 +2,7 @@ import React from 'react';
 import store from '../store/index';
 
 const queries = prevList => {
-  const searchTerms = prevList || ['test', 'this is a test', 'another']
+  const searchTerms = prevList
   return searchTerms.map((x, i) => <li key={i}> {x} </li>)
 }
 class PreviousList extends React.Component {
