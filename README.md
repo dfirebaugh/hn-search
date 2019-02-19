@@ -3,6 +3,8 @@ This tool allows a user to search the  Hacker News Algolia API and displays a li
 
 The user's search terms are saved in a Redux store but not persisted across sessions.
 
+[demo](https://dfirebaugh.github.io/hn-search/)
+
 ### Running this Project
 1. Clone this repo
 2. navigate to the ` hn-search ` directory
