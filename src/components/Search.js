@@ -19,7 +19,7 @@ class Search extends React.Component {
   onSubmit = () => {
     store.dispatch(addSearchTerm(this.state.search))
 
-    fetch(`http://hn.algolia.com/api/v1/search?query=${this.state.search}`)
+    fetch(`https://hn.algolia.com/api/v1/search?query=${this.state.search}`)
       .then(response => response.json())
       .then(data => this.setState({ results: data }))
   }
