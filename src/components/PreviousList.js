@@ -1,10 +1,8 @@
 import React from 'react';
 import store from '../store/index';
 
-const queries = prevList => {
-  const searchTerms = prevList
-  return searchTerms.map((x, i) => <li key={i}> {x} </li>)
-}
+const queries = searchTerms => searchTerms.map((x, i) => <li key={i}> {x} </li>)
+
 class PreviousList extends React.Component {
   componentDidMount() {
     store.subscribe(() => this.setState({ searchTerms: store.getState().searchTerms }))
