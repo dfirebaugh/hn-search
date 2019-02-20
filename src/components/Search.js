@@ -3,11 +3,12 @@ import store from '../store/index';
 import { addSearchTerm } from '../actions/index';
 import logo from '../logo.svg';
 
-const resultList = results => results.hits.map((x, i) => {
+const resultList = results => results.hits.map((result, i) => {
+  const { url, title, author, points } = result;
   return <div className="results" key={i}>
-    <h2><a href={x.url}>{x.title}</a></h2>
-    <p>author: {x.author} </p>
-    <p>points: {x.points}</p>
+    <h2><a href={url}>{title}</a></h2>
+    <p>author: {author} </p>
+    <p>points: {points}</p>
   </div>
 });
 
@@ -29,15 +30,15 @@ class Search extends React.Component {
     }
   }
   render() {
-    return <header className="App-header">
+    return <div className="App-header">
       <div style={{ display: 'flex' }}>
         <input onKeyDown={this.keyPress} onChange={this.handleSearch} />
         <button onClick={this.onSubmit}>Submit</button>
       </div>
-      {this.state && this.state.search}
+      {this.state.search}
       {this.state.results && resultList(this.state.results)}
       {!this.state.results && <img src={logo} className="App-logo" alt="logo" />}
-    </header>
+    </div>
   }
 }
 
