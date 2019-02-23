@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import store from '../store/index';
 import { addSearchTerm } from '../actions/index';
 import logo from '../logo.svg';
@@ -12,34 +12,31 @@ const resultList = results => results.hits.map((result, i) => {
   </div>
 });
 
-class Search extends React.Component {
-  state = { search: '' }
-  handleSearch = e => {
-    this.setState({ search: e.target.value })
-  }
-  onSubmit = () => {
-    store.dispatch(addSearchTerm(this.state.search))
+const Search = () => {
+  const [search, setTerm] = useState('');
+  const [results, setResults] = useState(null);
 
-    fetch(`https://hn.algolia.com/api/v1/search?query=${this.state.search}`)
+  const onSubmit = () => {
+    store.dispatch(addSearchTerm(search))
+
+    fetch(`https://hn.algolia.com/api/v1/search?query=${search}`)
       .then(response => response.json())
-      .then(data => this.setState({ results: data }))
+      .then(data => setResults(data))
   }
-  keyPress = e => {
-    if (e.keyCode === 13) {
-      this.onSubmit()
-    }
-  }
-  render() {
-    return <div className="App-header">
-      <div style={{ display: 'flex' }}>
-        <input onKeyDown={this.keyPress} onChange={this.handleSearch} />
-        <button onClick={this.onSubmit}>Submit</button>
-      </div>
-      {this.state.search}
-      {this.state.results && resultList(this.state.results)}
-      {!this.state.results && <img src={logo} className="App-logo" alt="logo" />}
+
+  const keyPress = e => e.keyCode === 13 && onSubmit()
+
+  const handleSearch = e => setTerm(e.target.value)
+
+  return <div className="App-header">
+    <div style={{ display: 'flex' }}>
+      <input onKeyDown={keyPress} onChange={handleSearch} />
+      <button onClick={onSubmit}>Submit</button>
     </div>
-  }
+    {search}
+    {results && resultList(results)}
+    {!results && <img src={logo} className="App-logo" alt="logo" />}
+  </div>
 }
 
 export default Search;
